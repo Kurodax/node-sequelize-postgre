@@ -1,0 +1,19 @@
+version: "3.1"
+services:
+  db:
+    container_name: sqlnode-postgres-lucas-db
+    image: postgres:10-alpine
+    ports:
+      - "5439:5432" 
+    environment:
+      POSTGRES_DB: lucas-db
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres
+  admin:
+    container_name: sqlnode-adminer-lucas-db
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8089:8080
