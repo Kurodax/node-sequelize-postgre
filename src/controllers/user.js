@@ -2,11 +2,26 @@ const User = require("../models/user");
 const validador = require("validator");
 
 module.exports = {
+  /**
+   * @description Buscar a tabela no db com nome de 'User' e mostra seu conteudo.
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Array} Retorna uma Promise<RES> dentro de um array.
+   */
   index: async (req, res) => {
     const response = await User.findAll();
 
     return res.json(response);
   },
+  /**
+   * @description Inclui no banco de dados as informações passada pelo usuario. OBS: Campos como email e phone apresenta validação de informação.
+   * @param {Request} req
+   * @param {Response} res
+   * @param isEmail valida o email para sempre o usuario incluia um arroba '@'
+   * @param isMobilePhone valida o phone, para que incluia número validos sem os caracteres (14) xx-xx
+   * @param create inclui no banco de dados as informações que o usuario passa.
+   * @returns 
+   */
 
   store: async (req, res) => {
     const name = req.body.name;
@@ -41,6 +56,12 @@ module.exports = {
 
     return res.json(criar);
   },
+  /**
+   * @description Deleta uma informação do db, informando o ID que deseja deletar.
+   * @param {Request} req
+   * @param {Response} res
+   * @returns Retorna uma Promise<numeros>
+   */
 
   deleta: async (req, res) => {
     const deletadados = await User.destroy({
@@ -58,6 +79,12 @@ module.exports = {
       mensagem: "Deletado com sucesso"
     });
   },
+  /**
+   * @description Atualiza a informações da db User, passando o ID e no corpo as infoações que deseja atualizar.
+   * @param {Request} req
+   * @param {Response} res
+   * @returns Retorna um Options.returning que sempre vai ser TRUE.
+   */
 
   update: async (req, res) => {
     const name = req.body.name;
@@ -91,6 +118,12 @@ module.exports = {
       mensagem: "Aleracao realizada com sucesso"
     });
   },
+  /**
+   * @description Mostra a informação que solicitou do banco foram de um array, apenas a que você indicar com o ID
+   * @param {Request} req
+   * @param {Response} res
+   * @returns Retorna as informações fora de um array, passando Promise <USER>
+   */
 
   show: async (req, res) => {
     const mostra = await User.findOne({

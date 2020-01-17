@@ -1,7 +1,8 @@
-const express = require("express");
-const Sequelize = require('sequelize');
+require('dotenv').config()
 
-const routes = require('./src/routes');
+const express = require("express");
+const Sequelize = require("sequelize");
+const routes = require("./src/routes");
 
 const config = require("./src/configs/database");
 
@@ -16,6 +17,12 @@ const app = express();
 app.use(express.json());
 app.use(routes);
 
-app.listen(9990, () => {
+
+/**
+ * @description Outra forma de informa o nome da variavel é com = ['PORT']
+ */
+
+const servidor = process.env.PORT;
+app.listen(servidor, () => {
   return console.log("Servidor online porta 9990");
 });
